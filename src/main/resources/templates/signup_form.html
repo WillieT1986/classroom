@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up - CodeJava</title>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+  <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+  <div>
+    <h1>User Registration - Sign Up</h1>
+  </div>
+  <form th:action="@{/process_register}" th:object="${user}" method="post" style="max-width: 600px; margin: 0 auto;">
+    <div class="m-3">
+      <!-- Email -->
+      <div class="form-group row">
+        <label class="col-4 col-form-label" for="email">E-mail:</label>
+        <div class="col-8">
+          <input type="email" id="email" th:field="*{email}" name="email" class="form-control" required />
+        </div>
+      </div>
+      <!-- Password -->
+      <div class="form-group row">
+        <label class="col-4 col-form-label" for="password">Password:</label>
+        <div class="col-8">
+          <input type="password" id="password" th:field="*{password}" name="password" class="form-control" required minlength="8" maxlength="25"/>
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>
