@@ -3,8 +3,9 @@ package com.wrthompsonjr.classroom.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
 
@@ -18,7 +19,6 @@ public class UserTest {
         underTest = new User(EMAIL, ENCODED_PASSWORD);
     }
 
-
     @Test
     public void shouldInstantiateAUserClass() {
         assertNotNull(underTest);
@@ -30,6 +30,27 @@ public class UserTest {
         String check3 = underTest.getPassword();
         assertEquals(EMAIL, check2);
         assertEquals(ENCODED_PASSWORD, check3);
+    }
+
+    @Test
+    public void testCreateDateIsSet() {
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        // Assert that the creationDate is set within a reasonable range of the current time
+        assertNotNull(underTest.getCreationDate());
+        assertTrue(underTest.getCreationDate().isAfter(currentTime.minusSeconds(1)));
+        assertTrue(underTest.getCreationDate().isBefore(currentTime.plusSeconds(1)));
+    }
+
+    @Test
+    public void testLastLoginDateIsUpdated() {
+        LocalDateTime initialLastLoginDate = underTest.getLastLoginDate();
+
+        // Simulate a login action
+        underTest.setLastLoginDate(LocalDateTime.now());
+
+        // Assert that the lastLoginDate has been updated
+        assertNotEquals(initialLastLoginDate, underTest.getLastLoginDate());
     }
 
 }

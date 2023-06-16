@@ -1,6 +1,7 @@
 package com.wrthompsonjr.classroom.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -14,11 +15,18 @@ public class User {
     @Column(name = "password", nullable = false, length = 80) // 80 is the max length since we are using BCrypt which has a max length of 72 bytes
     private String encodedPassword;
 
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creationDate;
+
+    @Column(name = "last_login_date")
+    private LocalDateTime lastLoginDate;
+
     public User() {
     }
     public User(String email, String encodedPassword) {
         this.email = email;
         this.encodedPassword = encodedPassword;
+        this.creationDate = LocalDateTime.now();
     }
 
     /* GETTERS */
@@ -32,6 +40,14 @@ public class User {
         return encodedPassword;
     }
 
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public LocalDateTime getLastLoginDate() {
+        return lastLoginDate;
+    }
+
     /* Setters */
     public void setId(long id) {
         this.id = id;
@@ -41,6 +57,14 @@ public class User {
     }
     public void setPassword(String encodedPassword) {
         this.encodedPassword = encodedPassword;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setLastLoginDate(LocalDateTime lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 
     /* OVERRIDES */
@@ -58,4 +82,6 @@ public class User {
         }
         return id == ((User) obj).id;
     }
+
+
 }

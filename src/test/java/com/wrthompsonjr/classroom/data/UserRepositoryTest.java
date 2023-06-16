@@ -9,11 +9,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
+import javax.transaction.Transactional;
+
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@Rollback(false)
 public class UserRepositoryTest {
 
     @Autowired
@@ -23,10 +26,15 @@ public class UserRepositoryTest {
     private UserRepository userRepo;
 
     @Test
+    @Transactional  // Apply the @Transactional annotation to make the test transactional
+    @Rollback  // Add the @Rollback annotation to roll back the changes made during the test
     public void testCreateUser() {
         User user = new User();
-        user.setEmail("testEmail0002@Yahoo.com");
-        user.setPassword("TestPassword2027");
+        user.setEmail("testEmail0003@Yahoo.com");
+        user.setPassword("TestPassword2027!");
+
+        // Set the creation date
+        user.setCreationDate(LocalDateTime.now());
 
         User savedUser = userRepo.save(user);
         User existUser = entityManager.find(User.class, savedUser.getId());
