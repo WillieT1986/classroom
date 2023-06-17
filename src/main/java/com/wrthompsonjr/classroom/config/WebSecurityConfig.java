@@ -26,11 +26,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomUserDetailsService();
     }
 
+    // CustomUserDetailsService bean definition
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // BCryptPasswordEncoder bean definition
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -40,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
+    // DaoAuthenticationProvider bean definition
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
@@ -63,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .permitAll();
 //    }
 
+    // Configure HTTP security
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
