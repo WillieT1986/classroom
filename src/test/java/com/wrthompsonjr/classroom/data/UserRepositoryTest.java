@@ -1,3 +1,10 @@
+/*  The UserRepositoryTest class is a JUnit test class for the UserRepository interface.
+    It contains test methods to verify the functionality of the repository,
+    such as creating a new user and retrieving users from the database.
+
+    - William R Thompson Jr. (06/16/2023)
+*/
+
 package com.wrthompsonjr.classroom.data;
 
 import com.wrthompsonjr.classroom.model.User;

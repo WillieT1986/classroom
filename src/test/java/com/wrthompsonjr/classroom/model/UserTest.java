@@ -1,3 +1,10 @@
+/*  The UserTest class is a JUnit test class for the User class.
+    It contains test methods to verify the behavior of the User class,
+    such as checking if the user's email is set correctly.
+
+    - William R Thompson Jr. (06/16/2023)
+*/
+
 package com.wrthompsonjr.classroom.model;
 
 import org.junit.jupiter.api.BeforeEach;
