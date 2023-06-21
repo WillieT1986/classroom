@@ -8,6 +8,9 @@
 
 package com.wrthompsonjr.classroom.model;
 
+import com.wrthompsonjr.classroom.model.user.UserLoginActivity;
+import com.wrthompsonjr.classroom.model.user.UserRole;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,11 +34,18 @@ public class User {
     @Column(name = "last_login_date")
     private LocalDateTime lastLoginDate;
 
+    /* RELATIONSHIPS */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserLoginActivity> loginActivities = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private UserRole userRole;
+
+    /* CONSTRUCTORS */
     public User() {
     }
+
     public User(String email, String encodedPassword) {
         this.email = email;
         this.encodedPassword = encodedPassword;
@@ -65,6 +75,10 @@ public class User {
         return loginActivities;
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
     /* Setters */
     public void setId(long id) {
         this.id = id;
@@ -88,6 +102,10 @@ public class User {
         this.loginActivities = loginActivities;
     }
 
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
     /* OVERRIDES */
     @Override
     public int hashCode() {
@@ -104,5 +122,17 @@ public class User {
         return id == ((User) obj).id;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", encodedPassword='" + encodedPassword + '\'' +
+                ", creationDate=" + creationDate +
+                ", lastLoginDate=" + lastLoginDate +
+                ", loginActivities=" + loginActivities +
+                ", userRole=" + userRole +
+                '}';
+    }
 
 }
