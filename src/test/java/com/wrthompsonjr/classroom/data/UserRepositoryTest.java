@@ -8,6 +8,7 @@
 package com.wrthompsonjr.classroom.data;
 
 import com.wrthompsonjr.classroom.model.User;
+import com.wrthompsonjr.classroom.model.user.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -32,16 +33,27 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private UserRoleRepository userRoleRepo;
+
     @Test
     @Transactional  // Apply the @Transactional annotation to make the test transactional
     @Rollback  // Add the @Rollback annotation to roll back the changes made during the test
     public void testCreateUser() {
+        // Create New User
         User user = new User();
-        user.setEmail("testEmail0003@Yahoo.com");
+        user.setEmail("testEmail0004@Yahoo.com");
         user.setPassword("TestPassword2027!");
+
 
         // Set the creation date
         user.setCreationDate(LocalDateTime.now());
+
+        // Set the user role
+        UserRole role = new UserRole();
+        role.setName("ROLE_USER"); // Set the appropriate role name
+        role.setDescription("Default User Role"); // Set the appropriate role description
+        user.setUserRole(role);
 
         User savedUser = userRepo.save(user);
         User existUser = entityManager.find(User.class, savedUser.getId());
