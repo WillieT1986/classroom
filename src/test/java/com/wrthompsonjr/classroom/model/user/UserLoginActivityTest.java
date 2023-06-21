@@ -5,8 +5,9 @@
     - William R Thompson Jr. (06/16/2023)
 */
 
-package com.wrthompsonjr.classroom.model;
+package com.wrthompsonjr.classroom.model.user;
 
+import com.wrthompsonjr.classroom.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
