@@ -45,7 +45,6 @@ public class UserRepositoryTest {
         user.setEmail("testEmail0004@Yahoo.com");
         user.setPassword("TestPassword2027!");
 
-
         // Set the creation date
         user.setCreationDate(LocalDateTime.now());
 

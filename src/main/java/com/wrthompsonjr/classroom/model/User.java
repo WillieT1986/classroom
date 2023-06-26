@@ -9,6 +9,7 @@
 package com.wrthompsonjr.classroom.model;
 
 import com.wrthompsonjr.classroom.model.user.UserLoginActivity;
+import com.wrthompsonjr.classroom.model.user.UserProfile;
 import com.wrthompsonjr.classroom.model.user.UserRole;
 
 import javax.persistence.*;
@@ -41,6 +42,9 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id")
     private UserRole userRole;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserProfile userProfile;
 
     /* CONSTRUCTORS */
     public User() {
@@ -79,6 +83,10 @@ public class User {
         return userRole;
     }
 
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
     /* Setters */
     public void setId(long id) {
         this.id = id;
@@ -106,11 +114,23 @@ public class User {
         this.userRole = userRole;
     }
 
+    public void setUserProfile(UserProfile userProfile) {
+        if (userProfile == null) {
+            if (this.userProfile != null) {
+                this.userProfile.setUser(null);
+            }
+        } else {
+            userProfile.setUser(this);
+        }
+        this.userProfile = userProfile;
+    }
+
     /* OVERRIDES */
     @Override
     public int hashCode() {
         return ((Long) id).hashCode();
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
